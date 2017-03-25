@@ -1,7 +1,7 @@
 'use strict';
 
 var path = process.cwd();
-var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
+var ClickHandler = require('../clickHandler.server.js'); 
 
 module.exports = function (app, db) {
 
@@ -15,4 +15,9 @@ var clickHandler = new ClickHandler(db);
 		.get(clickHandler.getClicks)
 		.post(clickHandler.addClick)
 		.delete(clickHandler.resetClicks);
+		
+	app.route('/test')
+		.get(function(req, res) {
+			res.send('test route!'); 
+		})
 };
