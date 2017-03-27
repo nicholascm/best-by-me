@@ -21,8 +21,11 @@
   "author": "Blake Johnston",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^4.0.0",
     "express": "^4.12.4",
     "mongodb": "^2.0.33",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.0",
     "yelp": "^1.0.2"
   }
 }

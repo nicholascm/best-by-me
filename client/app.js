@@ -2,44 +2,60 @@
 
 angular.module('bestByMeApp', ['ngRoute'])
 
-    .controller('HomeCtrl', ['$http','LocationFactory', function($http,locationFactory) {
+    .controller('HomeCtrl', ['$http','LocationFactory', 'lowerFilter', function($http, locationFactory, lowerFilter) {
         var self = this; 
 
-        self.message = 'Welcome! Search for the best restaurants close by!';
+        this.message = 'Welcome! Search for the best restaurants close by!';
         this.userLat; 
         this.userLong; 
-        self.locations = []; 
-        self.getLocations = function() {
+        this.loading = false; 
+        this.locations = []; 
+        this.getLocations = function() {
             return $http.get('/api/restaurants').then(function(response) {
                 console.log(response.data); 
                 self.locations = response.data.businesses; 
             }); 
         }
-        self.getLocations(); 
+        this.getLocations(); 
+
         this.successLocationInfo = function(position) {
+            self.loading = false; 
             self.userLat = position.coords.latitude; 
             self.userLong = position.coords.longitude; 
         };
         this.failLocationInfo = function(err) {
+            self.loading = false; 
             self.message = "We weren't able to get your location"; 
         }
-
-        locationFactory.getUserLocation(this.successLocationInfo, this.failLocationInfo); 
+        this.getUserLocation = function() {
+            self.loading = true; 
+            locationFactory.getUserLocation()
+                .then(this.successLocationInfo, this.failLocationInfo);
+        }
+        this.getUserLocation(); 
     }]) 
-    .factory('LocationFactory', function() {
+    .factory('LocationFactory', ['$q', function($q) {
         var factory = {}; 
 
-        factory.getUserLocation = function(success, error) {
+        factory.getUserLocation = function() {
+            var deferred = $q.defer(); 
             if(!navigator.geolocation) {
                 return "Unable to acquire location"; 
             } else {
                 navigator.geolocation.getCurrentPosition(
-                function(position) { success(position) }, 
-                function(err) { error(err); }); 
+                function(position) { deferred.resolve(position);  }, 
+                function(err) { deferred.reject(err); }); 
             }
+
+            return deferred.promise; 
         }
 
         return factory;
+    }])
+    .filter('lower', function() {
+        return function(input) {
+            return input.toLowerCase();
+        };
     })
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider

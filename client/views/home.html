@@ -6,10 +6,11 @@
         <p>{{ home.userLat }}</p>
         <p>{{ home.userLong }}</p>
     </div>
+    <i ng-show="home.loading" class="fa fa-spinner fa-pulse fa-3x fa-fw">Retrieving Your Location</i>
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="result in home.locations">
-            {{ result.name}}
-            {{ result.rating}} stars
+            {{ result.name | lower }}
+            {{ result.rating }} stars
             <span ng-if="!result.is_closed">Open Now!</span>
         </li>
     </ul>

@@ -3,6 +3,7 @@
 var express = require('express');
 var routes = require('./server/routes/index.js');
 var mongo = require('mongodb').MongoClient;
+var env = require('dotenv').config(); 
 
 var app = express();
 
