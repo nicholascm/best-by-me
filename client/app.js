@@ -57,6 +57,26 @@ angular.module('bestByMeApp', ['ngRoute'])
             return input.toLowerCase();
         };
     })
+    .directive('navigation', function() {
+        return {
+            templateUrl: '../views/nav.html',
+            scope: {
+                userInfo: '=userInfo'
+            }
+        }
+    })
+    .directive('rating', function() {
+        return {
+            templateUrl: '../views/rating.html', 
+            link: function(scope, elem, attr) {
+                scope.ratingArray = _.range(scope.score); 
+                console.log(scope.ratingArray); 
+            },
+            scope: {
+                score: '=score', 
+            }
+        }
+    })
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
         .when('/home', {
@@ -67,6 +87,10 @@ angular.module('bestByMeApp', ['ngRoute'])
          })
          .otherwise({
              redirectTo: '/home'
-         });
-}]); 
+         }); 
+
+    }])
+    .run(function($rootScope){
+        $rootScope._ = _;
+    });
 

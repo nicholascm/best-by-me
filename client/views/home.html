@@ -1,3 +1,4 @@
+<navigation></navigation>
 <div class="container text-center">
     <h1>Best by Me</h1>
     <p>Find the best restaurants near you!</p>
@@ -10,7 +11,7 @@
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="result in home.locations">
             {{ result.name | lower }}
-            {{ result.rating }} stars
+            <rating score="result.rating"></rating>
             <span ng-if="!result.is_closed">Open Now!</span>
         </li>
     </ul>

@@ -4,7 +4,6 @@ var express = require('express');
 var routes = require('./server/routes/index.js');
 var mongo = require('mongodb').MongoClient;
 var env = require('dotenv').config(); 
-
 var app = express();
 
 
@@ -26,7 +25,7 @@ mongo.connect('mongodb://localhost:27017/clementinejs', function (err, db) {
 
 	var port = 3000;
 	app.listen(port, function () {
-		console.log('Node.js listening on port ' + port + '...');
+		console.log('Node.js listening on port ' + port + '!'); 
 	});
 
 });
