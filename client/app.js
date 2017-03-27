@@ -32,7 +32,6 @@ angular.module('bestByMeApp', ['ngRoute'])
             locationFactory.getUserLocation()
                 .then(this.successLocationInfo, this.failLocationInfo);
         }
-        this.getUserLocation(); 
     }]) 
     .factory('LocationFactory', ['$q', function($q) {
         var factory = {}; 
