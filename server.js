@@ -23,7 +23,7 @@ mongo.connect('mongodb://localhost:27017/clementinejs', function (err, db) {
    app.use('/', express.static(process.cwd()+'/client/'));
 	routes(app, db);
 
-	var port = process.env.PORT;
+	var port = 3000;
 	app.listen(port, function () {
 		console.log('Node.js listening on port ' + port + '...');
 	});
