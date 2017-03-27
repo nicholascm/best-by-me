@@ -15,7 +15,7 @@ mongo.connect('mongodb://localhost:27017/clementinejs', function (err, db) {
 		console.log('MongoDB successfully connected on port 27017.');
 	}
 
-	app.use('/public', express.static(process.cwd() + '/public'));
+   app.use('/public', express.static(process.cwd() + '/public'));
    app.use('/controllers', express.static(process.cwd() + '/client/controllers'));
    app.use('/directives', express.static(process.cwd() + '/client/directives'));
    app.use('/views', express.static(process.cwd()+'/client/views')); 

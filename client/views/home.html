@@ -1,3 +1,16 @@
-<div class="container">
-    <p>Home</p>
+<div class="container text-center">
+    <h1>Best by Me</h1>
+    <p>Find the best restaurants near you!</p>
+    <p>{{ home.message }} </p>
+    <div class="panel">
+        <p>{{ home.userLat }}</p>
+        <p>{{ home.userLong }}</p>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="result in home.locations">
+            {{ result.name}}
+            {{ result.rating}} stars
+            <span ng-if="!result.is_closed">Open Now!</span>
+        </li>
+    </ul>
 </div>
