@@ -1,1 +1,18 @@
-<h3>Detail!</h3>
+<navigation></navigation>
+<div class="container">
+<h3>{{ detail.info.name}}</h3>
+<div class="panel">
+    <div class="panel-header">
+    {{ detail.info.name}}
+    </div>
+    <div  class="panel-body">
+        {{ detail.info.display_phone }}
+    </div>  
+</div>
+<h4 class="text-center">Reviewer Said</h4>
+<ul class="list-group">
+    <li ng-repeat="review in detail.info.reviews" class="list-group-item text-center">
+       <rating score="review.rating"></rating>
+       <p> {{ review.excerpt }} </p>
+    </li>
+</div> 

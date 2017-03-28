@@ -22,7 +22,7 @@ const clickHandler = new ClickHandler(db);
 		.get(function(req, res) {
 			res.send('test route!'); 
 		})
-	app.route('/api/businesses')
+	app.route('/api/business')
 		.get(businessService.getBusinessByLocation); 
 	app.route('/api/business')
 		.post(businessService.getBusinessDetail)

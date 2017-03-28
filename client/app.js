@@ -11,7 +11,7 @@ angular.module('bestByMeApp', ['ngRoute'])
         this.loading = false; 
         this.locations = []; 
         this.getLocations = function() {
-            return $http.get('/api/businesses').then(function(response) {
+            return $http.get('/api/business').then(function(response) {
                 self.locations = response.data.businesses; 
                 console.log(self.locations); 
             }); 
@@ -37,12 +37,12 @@ angular.module('bestByMeApp', ['ngRoute'])
     .controller('DetailCtrl', ['$http', '$routeParams', function($http, $routeParams) {
         var self = this; 
         this.params = $routeParams; 
-        this.detail; 
+        this.info; 
         this.getDetails = function(params) {
             console.log(params); 
             return $http.post('/api/business', { data: params }).then(function(response) {
-                self.detail = response.data; 
-                console.log(self.detail); 
+                self.info = response.data; 
+                console.log(self.info); 
             }); 
         }
         this.getDetails(this.params);     
