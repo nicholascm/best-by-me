@@ -2,11 +2,11 @@
 
 var path = process.cwd();
 var ClickHandler = require('../clickHandler.server.js'); 
-var RestaurantService = require('../restaurantService.js'); 
+var BusinessService = require('../businessService.js'); 
 
 module.exports = function (app, db) {
 
-const restaurantService = new RestaurantService('8WuYG1u2c4uc2kmjgQRCHg','IL8ft9-a2pEV9sRvwCT2DbLvJZs', 'HnOYcs1CUCn6WCKBN5bRxb5tN3nSRCRc', 'wKScvflHu5aShgOCTBr1qG6EERM'); 
+const businessService = new BusinessService(); 
 const clickHandler = new ClickHandler(db);
 	app.route('/')
 		.get(function (req, res) {
@@ -22,6 +22,9 @@ const clickHandler = new ClickHandler(db);
 		.get(function(req, res) {
 			res.send('test route!'); 
 		})
-	app.route('/api/restaurants')
-		.get(restaurantService.getRestaurantsByLocation)
+	app.route('/api/businesses')
+		.get(businessService.getBusinessByLocation); 
+	app.route('/api/business')
+		.post(businessService.getBusinessDetail)
+
 };

@@ -3,7 +3,7 @@
     <h1>Best by Me</h1>
     <p>Find the best restaurants near you!</p>
     <p>{{ home.message }} </p>
-    <button class="btn btn-primary">Find Best Restaurants by Me</button>
+    <button ng-click="home.getLocations()"class="btn btn-primary">Find Best Restaurants by Me</button>
     <div class="panel">
         <p>{{ home.userLat }}</p>
         <p>{{ home.userLong }}</p>
@@ -14,6 +14,7 @@
             {{ result.name | lower }}
             <rating score="result.rating"></rating>
             <span ng-if="!result.is_closed">Open Now!</span>
+            <a class = "btn btn-default" href = "/#/store/{{result.id}}">View</a>
         </li>
     </ul>
 </div>

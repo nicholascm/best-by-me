@@ -11,12 +11,11 @@ angular.module('bestByMeApp', ['ngRoute'])
         this.loading = false; 
         this.locations = []; 
         this.getLocations = function() {
-            return $http.get('/api/restaurants').then(function(response) {
-                console.log(response.data); 
+            return $http.get('/api/businesses').then(function(response) {
                 self.locations = response.data.businesses; 
+                console.log(self.locations); 
             }); 
         }
-        this.getLocations(); 
 
         this.successLocationInfo = function(position) {
             self.loading = false; 
@@ -32,7 +31,22 @@ angular.module('bestByMeApp', ['ngRoute'])
             locationFactory.getUserLocation()
                 .then(this.successLocationInfo, this.failLocationInfo);
         }
+        this.getUserLocation(); 
+        this.getLocations(); 
     }]) 
+    .controller('DetailCtrl', ['$http', '$routeParams', function($http, $routeParams) {
+        var self = this; 
+        this.params = $routeParams; 
+        this.detail; 
+        this.getDetails = function(params) {
+            console.log(params); 
+            return $http.post('/api/business', { data: params }).then(function(response) {
+                self.detail = response.data; 
+                console.log(self.detail); 
+            }); 
+        }
+        this.getDetails(this.params);     
+    }])
     .factory('LocationFactory', ['$q', function($q) {
         var factory = {}; 
 
@@ -78,14 +92,20 @@ angular.module('bestByMeApp', ['ngRoute'])
     })
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
-        .when('/home', {
+        .when('/', {
             templateUrl: '../views/home.html',
             controller: 'HomeCtrl', 
             controllerAs: 'home', 
-            access: {restricted: false}
+            access: {restricted: false }
+         })
+         .when('/store/:id', {
+             templateUrl: '../views/detail.html', 
+             controller: 'DetailCtrl', 
+             controllerAs: 'detail', 
+             access: { restricted: false }
          })
          .otherwise({
-             redirectTo: '/home'
+             redirectTo: '/'
          }); 
 
     }])
